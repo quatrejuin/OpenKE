@@ -322,10 +322,22 @@ class Config(object):
                     total = self.lib.getTestTotal()
                     for times in range(total):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
+                        rel_clusters = json.load(open("/u/wujieche/Projects/try_ke_models/clusters/Reverb-15M_train_clusters_id_sorted.json"))
+                        old_r = self.test_r[0]
+                        new_r = old_r
+                        for cluster in rel_clusters:
+                            if self.test_r[0] in cluster:
+                                new_r = cluster[0]
+                                self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
+                                self.test_r_addr = self.test_r.__array_interface__['data'][0]
+                                print("Relation cluster {} -> {}".format(old_r, new_r))
+                                break
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         self.lib.testHead(res.__array_interface__['data'][0])
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
+                        self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
+                        self.test_r_addr = self.test_r.__array_interface__['data'][0] 
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         self.lib.testTail(res.__array_interface__['data'][0])
                         if self.log_on:

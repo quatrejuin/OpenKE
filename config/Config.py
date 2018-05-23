@@ -10,7 +10,10 @@ import json
 class Config(object):
 
     def __init__(self):
-        self.lib = ctypes.cdll.LoadLibrary("./release/Base.so")
+        if os.environ['CONDA_PREFIX']=='':
+            self.lib = ctypes.cdll.LoadLibrary("./release/Base.so")
+        else:
+            self.lib = ctypes.cdll.LoadLibrary(os.path.join(os.environ['CONDA_PREFIX'], 'lib',"Base.so"))
         self.lib.sampling.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int64, ctypes.c_int64, ctypes.c_int64]
         self.lib.getHeadBatch.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
         self.lib.getTailBatch.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]

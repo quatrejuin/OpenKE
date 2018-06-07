@@ -318,6 +318,7 @@ class Config(object):
             with self.sess.as_default():
                 if self.importName != None:
                     self.restore_tensorflow()
+
                 if self.test_link_prediction:
                     total = self.lib.getTestTotal()
                     for times in range(total):
@@ -339,18 +340,19 @@ class Config(object):
                         self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
                         self.test_r_addr = self.test_r.__array_interface__['data'][0] 
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        self.lib.testTail(res.__array_interface__['data'][0])
+                        x = self.lib.testTail(res.__array_interface__['data'][0])
+                        print("VALUE GOTTED FROM C: {}".format(x))
+                        
                         if self.log_on:
                             print times
                     self.lib.test_link_prediction()
+
                 if self.test_triple_classification:
                     self.lib.getValidBatch(self.valid_pos_h_addr, self.valid_pos_t_addr, self.valid_pos_r_addr, self.valid_neg_h_addr, self.valid_neg_t_addr, self.valid_neg_r_addr)
                     res_pos = self.test_step(self.valid_pos_h, self.valid_pos_t, self.valid_pos_r)
                     res_neg = self.test_step(self.valid_neg_h, self.valid_neg_t, self.valid_neg_r)
                     self.lib.getBestThreshold(res_pos.__array_interface__['data'][0], res_neg.__array_interface__['data'][0])
-
                     self.lib.getTestBatch(self.test_pos_h_addr, self.test_pos_t_addr, self.test_pos_r_addr, self.test_neg_h_addr, self.test_neg_t_addr, self.test_neg_r_addr)
-
                     res_pos = self.test_step(self.test_pos_h, self.test_pos_t, self.test_pos_r)
                     res_neg = self.test_step(self.test_neg_h, self.test_neg_t, self.test_neg_r)
                     self.lib.test_triple_classification(res_pos.__array_interface__['data'][0], res_neg.__array_interface__['data'][0])

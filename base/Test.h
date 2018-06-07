@@ -61,12 +61,22 @@ void testHead(REAL *con) {
     l_filter_reci_rank += 1.0/(l_filter_s+1);
     l_reci_rank += 1.0/(l_s+1);
     lastHead++;
+
+    /* HERE */
     printf("%ld %ld %ld\n",h,t,r);
     printf("l_filter_s: %ld\n", l_filter_s);
+    
 }
 
+/* 
+   FILE* fout = fopen((inPath + "log.txt").c_str(), "w");
+   fprintf("triple: %ld %ld %ld\n",h,t,r);
+   fprintf("l_filter_s: %ld\n", l_filter_s);
+   fclose(fout);
+ */
+
 extern "C"
-void testTail(REAL *con) {
+INT testTail(REAL *con) {
     INT h = testList[lastTail].h;
     INT t = testList[lastTail].t;
     INT r = testList[lastTail].r;
@@ -96,7 +106,10 @@ void testTail(REAL *con) {
     r_filter_reci_rank += 1.0/(1+r_filter_s);
     r_reci_rank += 1.0/(1+r_s);
     lastTail++;
+
+    /* HERE */
     printf("r_filter_s: %ld\n", r_filter_s);
+    return r_filter_s;
 }
 
 extern "C"
@@ -130,16 +143,21 @@ void test_link_prediction() {
 
     printf("Overall results:\n");
     
-    printf("metric:\t\t\t MRR \t\t MR \t\t hit@10 \t hit@3  \t hit@1 \n");
-    printf("l(raw):\t\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", l_reci_rank, l_rank, l_tot, l3_tot, l1_tot);
-    printf("r(raw):\t\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", r_reci_rank, r_rank, r_tot, r3_tot, r1_tot);
-    printf("averaged(raw):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n",
-            (l_reci_rank+r_reci_rank)/2, (l_rank+r_rank)/2, (l_tot+r_tot)/2, (l3_tot+r3_tot)/2, (l1_tot+r1_tot)/2);
-    printf("\n");
-    printf("l(filter):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", l_filter_reci_rank, l_filter_rank, l_filter_tot, l3_filter_tot, l1_filter_tot);
-    printf("r(filter):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", r_filter_reci_rank, r_filter_rank, r_filter_tot, r3_filter_tot, r1_filter_tot);
-    printf("averaged(filter):\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n",
-            (l_filter_reci_rank+r_filter_reci_rank)/2, (l_filter_rank+r_filter_rank)/2, (l_filter_tot+r_filter_tot)/2, (l3_filter_tot+r3_filter_tot)/2, (l1_filter_tot+r1_filter_tot)/2);
+    /* printf("metric:\t\t\t MRR \t\t MR \t\t hit@10 \t hit@3  \t hit@1 \n"); */
+    /* printf("l(raw):\t\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", l_reci_rank, l_rank, l_tot, l3_tot, l1_tot); */
+    /* printf("r(raw):\t\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", r_reci_rank, r_rank, r_tot, r3_tot, r1_tot); */
+    /* printf("averaged(raw):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", */
+    /*         (l_reci_rank+r_reci_rank)/2, (l_rank+r_rank)/2, (l_tot+r_tot)/2, (l3_tot+r3_tot)/2, (l1_tot+r1_tot)/2); */
+    /* printf("\n"); */
+    /* printf("l(filter):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", l_filter_reci_rank, l_filter_rank, l_filter_tot, l3_filter_tot, l1_filter_tot); */
+    /* printf("r(filter):\t\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", r_filter_reci_rank, r_filter_rank, r_filter_tot, r3_filter_tot, r1_filter_tot); */
+    /* printf("averaged(filter):\t %.3f \t %.3f \t %.3f \t %.3f \t %.3f \n", */
+
+    printf("metric:\t\t\t MRR \t\t MR\n");
+    printf("l(filter):\t\t %.3f \t %.0f\n", l_filter_reci_rank, l_filter_rank);
+    printf("r(filter):\t\t %.3f \t %.0f\n", r_filter_reci_rank, r_filter_rank);
+    printf("averaged(filter):\t %.3f \t %.0f\n",
+           (l_filter_reci_rank+r_filter_reci_rank)/2, (l_filter_rank+r_filter_rank)/2);
 }
 
 /*=====================================================================================

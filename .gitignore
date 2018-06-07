@@ -1,5 +1,6 @@
 # Large model files
 models/TransE*
+release/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

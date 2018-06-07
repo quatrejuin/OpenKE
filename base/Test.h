@@ -31,10 +31,16 @@ void getTailBatch(INT *ph, INT *pt, INT *pr) {
 }
 
 extern "C"
-void testHead(REAL *con) {
+INT* testHead(REAL *con) {
+
     INT h = testList[lastHead].h;
     INT t = testList[lastHead].t;
     INT r = testList[lastHead].r;
+
+    int* tuple = new int[3];
+    tuple[0] = h;
+    tuple[1] = r;
+    tuple[2] = t;
 
     REAL minimal = con[h];
     INT l_s = 0;
@@ -62,9 +68,9 @@ void testHead(REAL *con) {
     l_reci_rank += 1.0/(l_s+1);
     lastHead++;
 
-    /* HERE */
     printf("%ld %ld %ld\n",h,t,r);
     printf("l_filter_s: %ld\n", l_filter_s);
+    return tuple; /* l_filter_s; */
     
 }
 
@@ -106,8 +112,6 @@ INT testTail(REAL *con) {
     r_filter_reci_rank += 1.0/(1+r_filter_s);
     r_reci_rank += 1.0/(1+r_s);
     lastTail++;
-
-    /* HERE */
     printf("r_filter_s: %ld\n", r_filter_s);
     return r_filter_s;
 }

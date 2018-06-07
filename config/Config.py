@@ -334,14 +334,15 @@ class Config(object):
                                 print("Relation cluster {} -> {}".format(old_r, new_r))
                                 break
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        self.lib.testHead(res.__array_interface__['data'][0])
+                        head_rank = self.lib.testHead(res.__array_interface__['data'][0])
+                        print("Head rank for example {}: {}".format(times, head_rank))
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
                         self.test_r_addr = self.test_r.__array_interface__['data'][0] 
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        x = self.lib.testTail(res.__array_interface__['data'][0])
-                        print("VALUE GOTTED FROM C: {}".format(x))
+                        tail_rank = self.lib.testTail(res.__array_interface__['data'][0])
+                        print("Tail rank for example {}: {}".format(times, tail_rank))
                         
                         if self.log_on:
                             print times

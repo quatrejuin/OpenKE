@@ -1,6 +1,6 @@
 # Large model files
 models/TransE*
-release/*
+release/Base.so
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

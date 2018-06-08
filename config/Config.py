@@ -334,7 +334,10 @@ class Config(object):
                                 print("Relation cluster {} -> {}".format(old_r, new_r))
                                 break
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        head_rank = self.lib.testHead(res.__array_interface__['data'][0])
+                        self.lib.testHead.restype = ctypes.POINTER(ctypes.c_int * 4)
+                        result = self.lib.testHead(res.__array_interface__['data'][0])
+                        arg1, rel, arg2, head_rank = result.contents
+                        print("Triple gotted from C : {} == {} == {}".format(arg1, rel, arg2))
                         print("Head rank for example {}: {}".format(times, head_rank))
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)

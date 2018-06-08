@@ -31,16 +31,16 @@ void getTailBatch(INT *ph, INT *pt, INT *pr) {
 }
 
 extern "C"
-INT* testHead(REAL *con) {
+int* testHead(REAL *con) {
 
     INT h = testList[lastHead].h;
     INT t = testList[lastHead].t;
     INT r = testList[lastHead].r;
 
-    int* tuple = new int[3];
-    tuple[0] = h;
-    tuple[1] = r;
-    tuple[2] = t;
+    int* output = new int[3];
+    output[0] = h;
+    output[1] = r;
+    output[2] = t;
 
     REAL minimal = con[h];
     INT l_s = 0;
@@ -55,7 +55,9 @@ INT* testHead(REAL *con) {
                 l_filter_s += 1;
         }
     }
-
+    output[3] = l_filter_s;
+    /* This function will return the tuple and the head rank. */
+    
     if (l_filter_s < 10) l_filter_tot += 1;
     if (l_s < 10) l_tot += 1;
     if (l_filter_s < 3) l3_filter_tot += 1;
@@ -67,10 +69,10 @@ INT* testHead(REAL *con) {
     l_filter_reci_rank += 1.0/(l_filter_s+1);
     l_reci_rank += 1.0/(l_s+1);
     lastHead++;
-
+    
     printf("%ld %ld %ld\n",h,t,r);
     printf("l_filter_s: %ld\n", l_filter_s);
-    return tuple; /* l_filter_s; */
+    return output; /* l_filter_s; */
     
 }
 

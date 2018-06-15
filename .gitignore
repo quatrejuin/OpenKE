@@ -1,3 +1,9 @@
+# Ignore the data folder
+data/
+
+# Ignore vs code folder
+.vscode/
+
 # Large model files
 models/TransE*
 

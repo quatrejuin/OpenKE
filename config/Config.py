@@ -314,11 +314,11 @@ class Config(object):
                     self.save_parameters(self.out_path)
 
     def test(self):
-        # kb = os.path.basename(os.path.normpath(self.in_path))
         f = open("log.log", "w")
-        f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
-                .format(kb))
-        f.write("Lines are formatted as 'head rel tail head_rank tail_rank'\n")
+        # kb = os.path.basename(os.path.normpath(self.in_path))
+        # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
+        #         .format(kb))
+        # f.write("Lines are formatted as 'head rel tail head_rank tail_rank'\n")
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:

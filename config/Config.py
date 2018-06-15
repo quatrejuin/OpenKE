@@ -314,6 +314,11 @@ class Config(object):
                     self.save_parameters(self.out_path)
 
     def test(self):
+        # kb = os.path.basename(os.path.normpath(self.in_path))
+        f = open("log.log", "w")
+        f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
+                .format(kb))
+        f.write("Lines are formatted as 'head rel tail head_rank tail_rank'\n")
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:
@@ -324,6 +329,8 @@ class Config(object):
                     for times in range(total):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         rel_clusters = json.load(open("/u/wujieche/Projects/try_ke_models/clusters/Reverb-15M_train_clusters_id_sorted.json"))
+                        # print("There are {} clusters in this version.".format(len(rel_clusters)))
+                        # print("There are {} relations per cluster on average in this version.".format(sum(len(c) for c in rel_clusters)))
                         old_r = self.test_r[0]
                         new_r = old_r
                         for cluster in rel_clusters:
@@ -337,19 +344,20 @@ class Config(object):
                         self.lib.testHead.restype = ctypes.POINTER(ctypes.c_int * 4)
                         result = self.lib.testHead(res.__array_interface__['data'][0])
                         arg1, rel, arg2, head_rank = result.contents
-                        print("Triple gotted from C : {} == {} == {}".format(arg1, rel, arg2))
-                        print("Head rank for example {}: {}".format(times, head_rank))
+                        # print("Head rank for example {}: {}".format(times, head_rank))
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
                         self.test_r_addr = self.test_r.__array_interface__['data'][0] 
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         tail_rank = self.lib.testTail(res.__array_interface__['data'][0])
-                        print("Tail rank for example {}: {}".format(times, tail_rank))
+                        # print("Tail rank for example {}: {}".format(times, tail_rank))
+                        f.write("{} {} {} {} {}\n".format(arg1, rel, arg2, head_rank, tail_rank))
                         
                         if self.log_on:
                             print times
                     self.lib.test_link_prediction()
+                    f.close()
 
                 if self.test_triple_classification:
                     self.lib.getValidBatch(self.valid_pos_h_addr, self.valid_pos_t_addr, self.valid_pos_r_addr, self.valid_neg_h_addr, self.valid_neg_t_addr, self.valid_neg_r_addr)

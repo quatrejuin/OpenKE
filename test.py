@@ -18,11 +18,11 @@ def main():
     con.set_test_triple_classification(True)
     con.set_work_threads(8)
     con.set_dimension(100)
-    con.set_import_files("models/{}-{}_model.vec.tf".format(model, kb))
+    con.set_import_files("models/{}-{}-{}_model.vec.tf".format(model, kb, clusters))
     con.init()
     con.set_model(getattr(models, model)) # models.TransE
     con.test(clusters)
-    log_path = "{}-{}_clusters_test_log.log".format(model, kb)
+    log_path = "{}-{}-{}_clusters_test_log.log".format(model, kb, clusters)
     os.rename("log.log", log_path)
 
     # rank_by_relID_plot()

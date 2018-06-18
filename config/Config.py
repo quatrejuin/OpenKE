@@ -277,11 +277,14 @@ class Config(object):
     def train_step(self, batch_h, batch_t, batch_r, batch_y):
         feed_dict = {
             self.trainModel.batch_h: batch_h,
-            self.trainModel.batch_t: batch_t,
-            self.trainModel.batch_r: batch_r,
+            self.trainModel.batch_t: batch_t,         # kb = os.path.basename(os.path.normpath(self.in_path))
+￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
+            self.trainModel.batch_r: batch_r,         # kb = os.path.basename(os.path.normpath(self.in_path))
+￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
             self.trainModel.batch_y: batch_y
         }
-        _, loss = self.sess.run([self.train_op, self.trainModel.loss], feed_dict)
+        _, loss = self.sess.run([self.train_o         # kb = os.path.basename(os.path.normpath(self.in_path))
+￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n".trainModel.loss], feed_dict)
         return loss
 
     def test_step(self, test_h, test_t, test_r):
@@ -315,13 +318,14 @@ class Config(object):
 
 
     def inverse_index(clusters):
-    index = {}
-    for c in clusters:
-        for p in c:
-            index[p] = c[0]
-    return index
+        index = {}
+        for c in clusters:
+            for p in c:
+                index[p] = c[0]
+        return index
 
     def test(self, clusters_version = "V1"):
+        f = open("log.log", "w")
         rel_clusters = json.load(open("/u/lechellw/3-Clusters/{}_id_sorted.json".format(clusters_version)))
         cluster_map = inverse_index(rel_clusters)
         with self.graph.as_default():
@@ -335,12 +339,13 @@ class Config(object):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)    
                         old_r = self.test_r[0]
                         new_r = old_r
-                        if old_r in cluster_map:
-                            new_r = cluster[0]
+                        try:
+                            new_r = cluster_map[old_r]
                             self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
                             self.test_r_addr = self.test_r.__array_interface__['data'][0]
                             print("Relation cluster {} -> {}".format(old_r, new_r))
-                            break
+                        except KeyError:
+                            pass
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         self.lib.testHead.restype = ctypes.POINTER(ctypes.c_int * 4)
                         result = self.lib.testHead(res.__array_interface__['data'][0])

@@ -314,7 +314,7 @@ class Config(object):
                     self.save_parameters(self.out_path)
 
 
-    def inverse_index(clusters):
+    def inverse_index(self,clusters):
         index = {}
         for c in clusters:
             for p in c:
@@ -324,7 +324,7 @@ class Config(object):
     def test(self, clusters_version = "V1"):
         f = open("log.log", "w")
         rel_clusters = json.load(open("/u/lechellw/3-Clusters/{}_id_sorted.json".format(clusters_version)))
-        cluster_map = inverse_index(rel_clusters)
+        cluster_map = self.inverse_index(rel_clusters)
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:

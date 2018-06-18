@@ -313,16 +313,33 @@ class Config(object):
                 if self.out_path != None:
                     self.save_parameters(self.out_path)
 
-    def test(self):
+    def test(self, clusters_version = "V1"):
+        f = open("log.log", "w")
+        # kb = os.path.basename(os.path.normpath(self.in_path))
+        # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
+        #         .format(kb))
+        # f.write("Lines are formatted as 'head rel tail head_rank tail_rank'\n")
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:
                     self.restore_tensorflow()
+
                 if self.test_link_prediction:
                     total = self.lib.getTestTotal()
                     for times in range(total):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
-                        rel_clusters = json.load(open("/u/wujieche/Projects/try_ke_models/clusters/Reverb-15M_train_clusters_id_sorted.json"))
+                        rel_clusters = json.load(open("/u/lechellw/3-Clusters/{}_id_sorted.json".format(clusters_version)))
+
+                        # clusters options are:
+                        # the /u/lechellw/3-Clusters/V<n>_id_sorted.json are symlinks
+                        # V1 : Reverb-15M_train_clusters_id_sorted.json
+                        # RV15M_train_V2-10k-.99_clusters_id_sorted.json
+                        # RV15M_train_V3-50k-.99_clusters_id_sorted.json
+                        # RV15M_train_V4-1k-.99_clusters_id_sorted.json
+                        # RV15M_train_V5-10k-.99-topinit_clusters_id_sorted.json
+                        
+                        # print("There are {} clusters in this version.".format(len(rel_clusters)))
+                        # print("There are {} relations per cluster on average in this version.".format(sum(len(c) for c in rel_clusters)))
                         old_r = self.test_r[0]
                         new_r = old_r
                         for cluster in rel_clusters:
@@ -333,24 +350,30 @@ class Config(object):
                                 print("Relation cluster {} -> {}".format(old_r, new_r))
                                 break
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        self.lib.testHead(res.__array_interface__['data'][0])
+                        self.lib.testHead.restype = ctypes.POINTER(ctypes.c_int * 4)
+                        result = self.lib.testHead(res.__array_interface__['data'][0])
+                        arg1, rel, arg2, head_rank = result.contents
+                        # print("Head rank for example {}: {}".format(times, head_rank))
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
                         self.test_r_addr = self.test_r.__array_interface__['data'][0] 
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
-                        self.lib.testTail(res.__array_interface__['data'][0])
+                        tail_rank = self.lib.testTail(res.__array_interface__['data'][0])
+                        # print("Tail rank for example {}: {}".format(times, tail_rank))
+                        f.write("{} {} {} {} {}\n".format(arg1, rel, arg2, head_rank, tail_rank))
+                        
                         if self.log_on:
                             print times
                     self.lib.test_link_prediction()
+                    f.close()
+
                 if self.test_triple_classification:
                     self.lib.getValidBatch(self.valid_pos_h_addr, self.valid_pos_t_addr, self.valid_pos_r_addr, self.valid_neg_h_addr, self.valid_neg_t_addr, self.valid_neg_r_addr)
                     res_pos = self.test_step(self.valid_pos_h, self.valid_pos_t, self.valid_pos_r)
                     res_neg = self.test_step(self.valid_neg_h, self.valid_neg_t, self.valid_neg_r)
                     self.lib.getBestThreshold(res_pos.__array_interface__['data'][0], res_neg.__array_interface__['data'][0])
-
                     self.lib.getTestBatch(self.test_pos_h_addr, self.test_pos_t_addr, self.test_pos_r_addr, self.test_neg_h_addr, self.test_neg_t_addr, self.test_neg_r_addr)
-
                     res_pos = self.test_step(self.test_pos_h, self.test_pos_t, self.test_pos_r)
                     res_neg = self.test_step(self.test_neg_h, self.test_neg_t, self.test_neg_r)
                     self.lib.test_triple_classification(res_pos.__array_interface__['data'][0], res_neg.__array_interface__['data'][0])

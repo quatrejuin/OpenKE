@@ -277,14 +277,11 @@ class Config(object):
     def train_step(self, batch_h, batch_t, batch_r, batch_y):
         feed_dict = {
             self.trainModel.batch_h: batch_h,
-            self.trainModel.batch_t: batch_t,         # kb = os.path.basename(os.path.normpath(self.in_path))
-￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
-            self.trainModel.batch_r: batch_r,         # kb = os.path.basename(os.path.normpath(self.in_path))
-￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"
+            self.trainModel.batch_t: batch_t,
+            self.trainModel.batch_r: batch_r,
             self.trainModel.batch_y: batch_y
         }
-        _, loss = self.sess.run([self.train_o         # kb = os.path.basename(os.path.normpath(self.in_path))
-￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n"		￼          # f.write("Logging the test of TransE embedding model on {} KB with PARAGRAM-based clusters.\n".trainModel.loss], feed_dict)
+        _, loss = self.sess.run([self.train_op, self.trainModel.loss], feed_dict)
         return loss
 
     def test_step(self, test_h, test_t, test_r):

@@ -321,10 +321,11 @@ class Config(object):
                 index[p] = c[0]
         return index
 
-    def test(self, clusters_version = "V1"):
+    def test(self, clusters_version = ""):
         f = open("log.log", "w")
-        rel_clusters = json.load(open("/u/lechellw/3-Clusters/{}_id_sorted.json".format(clusters_version)))
-        cluster_map = self.inverse_index(rel_clusters)
+        if clusters_version!= "":
+            rel_clusters = json.load(open("/u/lechellw/3-Clusters/{}_id_sorted.json".format(clusters_version)))
+            cluster_map = self.inverse_index(rel_clusters)
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:
@@ -336,13 +337,14 @@ class Config(object):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)    
                         old_r = self.test_r[0]
                         new_r = old_r
-                        try:
-                            new_r = cluster_map[old_r]
-                            self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
-                            self.test_r_addr = self.test_r.__array_interface__['data'][0]
-                            print("Relation cluster {} -> {}".format(old_r, new_r))
-                        except KeyError:
-                            pass
+                        if clusters_version!= "":
+                            try:
+                                new_r = cluster_map[old_r]
+                                self.test_r = np.array([new_r]*self.lib.getEntityTotal(),dtype=np.int64)
+                                self.test_r_addr = self.test_r.__array_interface__['data'][0]
+                                print("Relation cluster {} -> {}".format(old_r, new_r))
+                            except KeyError:
+                                pass
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         self.lib.testHead.restype = ctypes.POINTER(ctypes.c_int * 4)
                         result = self.lib.testHead(res.__array_interface__['data'][0])

@@ -46,6 +46,16 @@ class Config(object):
         self.optimizer = None
         self.test_link_prediction = False
         self.test_triple_classification = False
+
+        # Get the performance
+        self.get_head_mr = self.lib.get_head_mr
+        self.get_head_mrr = self.lib.get_head_mrr
+        self.get_tail_mr = self.lib.get_tail_mr
+        self.get_tail_mrr = self.lib.get_tail_mrr
+        self.get_head_mr.restype = ctypes.c_float
+        self.get_head_mrr.restype = ctypes.c_float
+        self.get_tail_mr.restype = ctypes.c_float
+        self.get_tail_mrr.restype = ctypes.c_float
     def init(self):
         self.trainModel = None
         if self.in_path != None:

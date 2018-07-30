@@ -295,4 +295,29 @@ void test_triple_classification(REAL *score_pos, REAL *score_neg) {
     printf("triple classification accuracy is %lf\n", aveAcc);
 }
 
+// Get the performance value
+extern "C"
+REAL get_head_mr ()
+{
+    return l_filter_rank;
+}
+
+extern "C"
+REAL get_head_mrr ()
+{
+    return l_filter_reci_rank;
+}
+
+extern "C"
+REAL get_tail_mr ()
+{
+    return r_filter_rank;
+}
+
+extern "C"
+REAL get_tail_mrr ()
+{
+    return r_filter_reci_rank;
+}
+
 #endif

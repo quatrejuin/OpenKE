@@ -85,10 +85,7 @@ class XpManager:
   def write(self, xp):
     # Reload the json file
     self._load(self.file)
-
     self.filter_default_params(xp)
-    if xp["log"]["title"] not in  self.xp_list:
-      self.size += 1
     self.xp_list[xp["log"]["title"]] = xp
     # Save the host info
     xp["log"]["host"] = socket.gethostname()
@@ -117,16 +114,10 @@ class XpManager:
   def _dump(self, file = None):
     if file == None:
       file = self.file
+    # Recalculate the size
+    xp_man.size = len(xp_man.xp_list)
     xp_man_dict = obj_to_dict(self)
     xp_man_dict.pop('file', None)
-    xp_man_dict.pop('modified_title_list', None)
-
-    # Check the update of the json file
-
-    # If json file is updated reload the xp_man
-
-    # Merge the update based on the updated mark
-
     xp_man_dict['last_modified']=time.strftime(TIME_FORMAT,time.localtime())
     json.dump(xp_man_dict, open(file,"w"), sort_keys=True, indent=4,)
 
@@ -157,16 +148,17 @@ def report(xp):
                .format(xp["perf"]["head_MRR"], xp["perf"]["tail_MRR"], xp["perf"]["avg_MRR"]))
     report += ("Config files train and test.py are saved alongside model in {}\n"
                .format(os.path.abspath(xp["log"]["embeddings_path"])))
+    report += ("Train Time: {}\nTest Time: {}\n".format(xp["log"]["time_train"],xp["log"]["time_test"]))
     print(report)
-    #save_via_email(xp["log"]["title"] + " {:.2f}k".format(xp["perf"]["avg_MR"]/1000) , report)
+    save_via_email(xp["log"]["title"] + " {:.2f}k".format(xp["perf"]["avg_MR"]/1000) , report)
 
 def save_via_email(title, message):
     # runs 'echo "MESSAGE" | mail -s "TITLE" lechellw@iro.umontreal.ca'
     import os, socket
     title = socket.gethostname().upper()+": "+ title
     os.system('echo "Experiment log :\n{}" | '
-              'mail -s "{}" william.lechelle@gmail.com'
-              .format(message, title))  
+              'mail -s "{}" {}'
+              .format(message, title, xp_man.mail_recepients))
 
 
 
@@ -174,9 +166,12 @@ xp_man = XpManager('./xps.json')
 if len(sys.argv) < 2:
   print("# all experiences:\n#\n")
   #List all the xps
-  for n,xp in xp_man.xp_list.items():
+  nx = xp_man.xp_list.keys()
+  nx.sort()
+  for n in nx:
     if not n.startswith('_'):
       print(n)
+  xp_man._dump()
   exit(1)
 xp_title = sys.argv[1]
 
@@ -184,17 +179,19 @@ xp = {}
 active_params = copy.deepcopy(xp_man.default_parameters)
 try:
   xp = xp_man.xp_list[xp_title]
+  xp["log"]={}
+  xp["log"]["title"]=xp_title
   # Clean the params
   xp["params_task"]["task"] = xp["params_task"]["task"].lower().replace(" ", "")
   print("The {} for {} begins...".format(xp["params_task"]["task"],xp["log"]["title"]))
-
+  xp["log"]["title"] = xp_title
   print(json.dumps(xp,sort_keys=True, indent=4,))
   # Set current xp parameter values
   active_params.update(xp['parameters'])
 except:
   # In case the xp is not in json (Shouldn't happen!)
   print("{} is not in file {}.\n".format(xp_title, xp_man.file))
-  if raw_input("Creat new experience {}?[y/n]".format(xp_title)) == 'y':
+  if raw_input("Create new experience {}?[y/n]".format(xp_title)) == 'y':
     xp=xp_man.xp_list["_template"].copy()
     xp["log"]={}
     xp["log"]["title"]=xp_title

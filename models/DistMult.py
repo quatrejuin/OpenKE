@@ -6,7 +6,8 @@ from Model import *
 class DistMult(Model):
 
 	def _calc(self, h, t, r):
-		return h * r * t
+		r = h * r * t
+		return r
 
 	def embedding_def(self):
 		config = self.get_config()
@@ -27,11 +28,25 @@ class DistMult(Model):
 		e_t = tf.nn.embedding_lookup(self.ent_embeddings, t)
 		e_r = tf.nn.embedding_lookup(self.rel_embeddings, r)
 		#Calculating score functions for all positive triples and negative triples
+
+		#self.tmp_score = self._calc(e_h, e_t, e_r)
 		res = tf.reduce_sum(self._calc(e_h, e_t, e_r), 1, keep_dims = False)
-		loss_func = tf.reduce_mean(tf.nn.softplus(- y * res))
-		regul_func = tf.reduce_mean(e_h ** 2) + tf.reduce_mean(e_t ** 2) + tf.reduce_mean(e_r ** 2)
+
+		self.tmp_score = h
+
+		std_loss_func = tf.reduce_mean(tf.nn.softplus(- y * res))
+		# Try Negative Log Likelihood of softmax function
+		loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))
+
+		#regul_func = tf.reduce_mean(e_h ** 2) + tf.reduce_mean(e_t ** 2) + tf.reduce_mean(e_r ** 2)
 		#Calculating loss to get what the framework will optimize
-		self.loss =  loss_func + config.lmbda * regul_func
+		#self.loss =  loss_func + config.lmbda * regul_func
+		self.loss =  std_loss_func
+
+		self.showres = res
+	
+
+
 
 	def predict_def(self):
 		config = self.get_config()

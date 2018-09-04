@@ -6,6 +6,7 @@ import time
 import datetime
 import ctypes
 import json
+import sys
 
 class Config(object):
 
@@ -203,7 +204,7 @@ class Config(object):
     def restore_tensorflow(self):
         with self.graph.as_default():
             with self.sess.as_default():
-                self.saver.restore(self.sess, self.importName)
+                self.saver.restore(self.sess, self.importName) 
 
 
     def export_variables(self, path = None):
@@ -292,6 +293,19 @@ class Config(object):
             self.trainModel.batch_y: batch_y
         }
         _, loss = self.sess.run([self.train_op, self.trainModel.loss], feed_dict)
+        #showres = self.sess.run(self.trainModel.showres, feed_dict)
+        #print("Res= {}\n".format(showres))
+        # __, old_loss = self.sess.run([self.train_op, self.trainModel.old_loss], feed_dict)
+        # #print("current loss {} old loss {}".format(loss, old_loss))
+
+        # tmp = self.sess.run(self.trainModel.tmp_score, feed_dict)
+        # print "{} {} {} {} {}".format(tmp[0],tmp[1],tmp[2],tmp[3],tmp[4])
+        # print "{} {} {} {} {}".format(tmp[3000],tmp[3001],tmp[3002],tmp[3003],tmp[3004])
+        # print "==="
+        # # print "\n\n\nscores right now :\n{}".format("\n".join([str(v) for v in list(tmp)[0]]))
+        # # print "nscores right now :\n{}".format("\n".join([str(v) for v in list(tmp)[1]]))
+        # # print "scores right now :\n{}".format("\n".join([str(v) for v in list(tmp)[2]]))
+        # # print "etc.\n"
         return loss
 
     def test_step(self, test_h, test_t, test_r):
@@ -318,6 +332,36 @@ class Config(object):
                         print res
                     if self.exportName != None and (self.export_steps!=0 and times % self.export_steps == 0):
                         self.save_tensorflow()
+                if self.exportName != None:
+                    self.save_tensorflow()
+                if self.out_path != None:
+                    self.save_parameters(self.out_path)
+
+    def run_loss(self):
+        with self.graph.as_default():
+            with self.sess.as_default():
+                if self.importName != None:
+                    self.restore_tensorflow()
+                self.train_times = 0
+                #res_last = sys.maxsize*1.0  #Python 3
+                res_last = sys.maxint*1.0  #Python 2
+                res = 0.0
+                THRESHOLD = 1e-3
+                # Run until the value of loss func converge
+                while abs(res-res_last) > THRESHOLD:
+                    res_last = res
+                    res = 0.0
+                    # Record the train_times
+                    self.train_times += 1
+                    for batch in range(self.nbatches):
+                        self.sampling()
+                        res += self.train_step(self.batch_h, self.batch_t, self.batch_r, self.batch_y)
+                    if self.log_on:
+                        print self.train_times
+                        print res
+                    if self.exportName != None and (self.export_steps!=0 and times % self.export_steps == 0):
+                        self.save_tensorflow()
+            
                 if self.exportName != None:
                     self.save_tensorflow()
                 if self.out_path != None:
@@ -374,11 +418,15 @@ class Config(object):
                     self.lib.test_link_prediction()
                     f.close()
 
+                # valid time
                 if self.test_triple_classification:
                     self.lib.getValidBatch(self.valid_pos_h_addr, self.valid_pos_t_addr, self.valid_pos_r_addr, self.valid_neg_h_addr, self.valid_neg_t_addr, self.valid_neg_r_addr)
                     res_pos = self.test_step(self.valid_pos_h, self.valid_pos_t, self.valid_pos_r)
                     res_neg = self.test_step(self.valid_neg_h, self.valid_neg_t, self.valid_neg_r)
                     self.lib.getBestThreshold(res_pos.__array_interface__['data'][0], res_neg.__array_interface__['data'][0])
+
+                # test time
+                if self.test_triple_classification:
                     self.lib.getTestBatch(self.test_pos_h_addr, self.test_pos_t_addr, self.test_pos_r_addr, self.test_neg_h_addr, self.test_neg_t_addr, self.test_neg_r_addr)
                     res_pos = self.test_step(self.test_pos_h, self.test_pos_t, self.test_pos_r)
                     res_neg = self.test_step(self.test_neg_h, self.test_neg_t, self.test_neg_r)

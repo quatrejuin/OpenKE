@@ -134,7 +134,7 @@ def report(xp):
     report += ("There are  {} train/ {} test/ {} valid triples.\n"
               .format(xp["corpus"]['total_train'],xp["corpus"]['total_test'],xp["corpus"]['total_valid']))          
     report += ("Experiment {} achieved {:.2f}k average MR. (current best {:.2f}k)\n"
-               .format(xp["log"]["title"], xp["perf"]["avg_MR"]/1000, 180123/1000))
+               .format(xp["log"]["title"], xp["perf"]["avg_MR"]/1000, 182724/1000))
     if xp["params_task"]["model"] in ['TransE', 'DistMult']:
         report += ("Hyperparameters for the {} model were:\n{}\n"
                    .format(xp["params_task"]["model"], "\n".join([key+" : "+str(value) for key,value in xp["parameters"].items() if key in REPORT_PARAMS])))
@@ -258,8 +258,10 @@ else:
 
 print(active_params)
 
+
 #Initialize experimental settings.
 con.init()
+
 
 #Get the corpus info (totals of relations and entities etc.)
 xp["corpus"] = {}
@@ -279,6 +281,8 @@ if "train" in MENU[ans]:
   t0 = time.time()
   con.run()
   xp["log"]["time_train"] = str(datetime.timedelta(seconds=time.time()-t0))
+  # Save the train_times
+  xp["log"]["train_times"] = con.train_times
 
 #To test models after training needs "set_test_flag(True)".
 # Train+ test or Test only

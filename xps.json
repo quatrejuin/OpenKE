@@ -15,9 +15,9 @@
         "train_times": 1000, 
         "workThreads": 8
     }, 
-    "last_modified": "2018-08-16 17:52:22", 
+    "last_modified": "2018-08-30 17:16:01", 
     "mail_recepients": "william.lechelle@gmail.com,wujiechen@gmail.com", 
-    "size": 67, 
+    "size": 100, 
     "xp_list": {
         "_template": {
             "parameters": {
@@ -85,6 +85,7 @@
             }
         }, 
         "xp034": {
+            "note": "Best overall, best head", 
             "params_task": {
                 "cluster": "V4", 
                 "kb": "RV15M", 
@@ -292,6 +293,41 @@
                 "tail_MRR": 0.394
             }
         }, 
+        "xp055-adam": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/u/wujieche/Projects/OpenKE/models/xp055-adam", 
+                "host": "octal15", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:01:41.626275", 
+                "time_train": "0:18:16.687700", 
+                "title": "xp055-adam"
+            }, 
+            "parameters": {
+                "opt_method": "Adam", 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/u/wujieche/Projects/OpenKE/models"
+            }, 
+            "perf": {
+                "avg_MR": 140.72885131835938, 
+                "avg_MRR": 0.24112959206104279, 
+                "head_MR": 164.13560485839844, 
+                "head_MRR": 0.22229081392288208, 
+                "tail_MR": 117.32209777832031, 
+                "tail_MRR": 0.2599683701992035
+            }
+        }, 
         "xp056": {
             "parameters": {
                 "train_times": 100
@@ -376,6 +412,26 @@
                 "head_MRR": 0.03, 
                 "tail_MR": 239645, 
                 "tail_MRR": 0.031
+            }
+        }, 
+        "xp059-adam": {
+            "parameters": {
+                "alpha": 0.001, 
+                "bern": 0, 
+                "ent_neg_rate": 1, 
+                "ent_size": 100, 
+                "hidden_size": 100, 
+                "margin": 1.0, 
+                "nbatches": 1000, 
+                "opt_method": "Adam", 
+                "rel_neg_rate": 0, 
+                "rel_size": 100, 
+                "train_times": 1000
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test"
             }
         }, 
         "xp060": {
@@ -586,7 +642,7 @@
             }
         }, 
         "xp069": {
-            "note": "current best", 
+            "note": "current best TransE / deep model", 
             "parameters": {
                 "alpha": 0.01, 
                 "nbatches": 100000, 
@@ -1593,6 +1649,42 @@
                 "tail_MRR": 0.10045564919710159
             }
         }, 
+        "xp114-adam": {
+            "corpus": {
+                "total_ent": 44950, 
+                "total_rel": 1605, 
+                "total_test": 14330, 
+                "total_train": 268264, 
+                "total_valid": 0
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp114-adam", 
+                "host": "malaga01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/ARISTO/", 
+                "time_test": "0:20:16.265743", 
+                "time_train": "1:42:56.747068", 
+                "title": "xp114-adam"
+            }, 
+            "parameters": {
+                "alpha": 0.01, 
+                "opt_method": "Adam", 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "ARISTO", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 3136.3836669921875, 
+                "avg_MRR": 0.046541446819901466, 
+                "head_MR": 3282.709228515625, 
+                "head_MRR": 0.03455887362360954, 
+                "tail_MR": 2990.05810546875, 
+                "tail_MRR": 0.05852402001619339
+            }
+        }, 
         "xp115": {
             "corpus": {
                 "total_ent": 44950, 
@@ -1628,6 +1720,43 @@
                 "head_MRR": 0.06995030492544174, 
                 "tail_MR": 4607.10009765625, 
                 "tail_MRR": 0.14225909113883972
+            }
+        }, 
+        "xp115-adam": {
+            "corpus": {
+                "total_ent": 44950, 
+                "total_rel": 1605, 
+                "total_test": 14330, 
+                "total_train": 268264, 
+                "total_valid": 1
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp115-adam", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/ARISTO/", 
+                "time_test": "0:10:44.968421", 
+                "time_train": "3:53:26.491591", 
+                "title": "xp115-adam"
+            }, 
+            "note": "", 
+            "parameters": {
+                "alpha": 0.01, 
+                "opt_method": "Adam", 
+                "train_times": 500
+            }, 
+            "params_task": {
+                "kb": "ARISTO", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 2947.5521240234375, 
+                "avg_MRR": 0.06257843784987926, 
+                "head_MR": 3054.8388671875, 
+                "head_MRR": 0.04914375767111778, 
+                "tail_MR": 2840.265380859375, 
+                "tail_MRR": 0.07601311802864075
             }
         }, 
         "xp116": {
@@ -1667,7 +1796,45 @@
                 "tail_MR": 4647.2021484375, 
                 "tail_MRR": 0.13467420637607574
             }
-        },
+        }, 
+        "xp116-adam": {
+            "corpus": {
+                "total_ent": 44950, 
+                "total_rel": 1605, 
+                "total_test": 14330, 
+                "total_train": 268264, 
+                "total_valid": 1
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp116-adam", 
+                "host": "malaga01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/ARISTO/", 
+                "time_test": "0:21:00.760504", 
+                "time_train": "3 days, 16:04:57.816665", 
+                "title": "xp116-adam"
+            }, 
+            "note": "", 
+            "parameters": {
+                "alpha": 0.01, 
+                "nbatches": 10000, 
+                "opt_method": "Adam", 
+                "train_times": 500
+            }, 
+            "params_task": {
+                "kb": "ARISTO", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 2863.8421630859375, 
+                "avg_MRR": 0.06458740495145321, 
+                "head_MR": 2985.69677734375, 
+                "head_MRR": 0.0480571873486042, 
+                "tail_MR": 2741.987548828125, 
+                "tail_MRR": 0.08111762255430222
+            }
+        }, 
         "xp117": {
             "corpus": {
                 "total_ent": 14951, 
@@ -1708,12 +1875,66 @@
                 "tail_MRR": 0.0007503278902731836
             }
         }, 
-        "xp118": {
+        "xp117-adam": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp117-adam", 
+                "host": "octal15", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:10:11.186264", 
+                "time_train": "0:44:37.406596", 
+                "title": "xp117-adam"
+            }, 
             "note": "", 
             "parameters": {
                 "ent_size": 512, 
                 "hidden_size": 512, 
-                "nbatches": 1000, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 226.97199249267578, 
+                "avg_MRR": 0.46165136992931366, 
+                "head_MR": 197.3513946533203, 
+                "head_MRR": 0.44214633107185364, 
+                "tail_MR": 256.59259033203125, 
+                "tail_MRR": 0.4811564087867737
+            }
+        }, 
+        "xp118": {
+            "corpus": {
+                "total_ent": 44950, 
+                "total_rel": 1605, 
+                "total_test": 14330, 
+                "total_train": 268264, 
+                "total_valid": 1
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp118", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/ARISTO/", 
+                "time_test": "0:34:03.853090", 
+                "time_train": "3:48:37.002888", 
+                "title": "xp118"
+            }, 
+            "note": "", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
                 "opt_method": "Adam", 
                 "rel_size": 512, 
                 "train_times": 100
@@ -1723,8 +1944,1061 @@
                 "model": "TransE", 
                 "task": "train+test", 
                 "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 3046.9202880859375, 
+                "avg_MRR": 0.05260803923010826, 
+                "head_MR": 3218.581787109375, 
+                "head_MRR": 0.040903858840465546, 
+                "tail_MR": 2875.2587890625, 
+                "tail_MRR": 0.06431221961975098
+            }
+        }, 
+        "xp119": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp119", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:08:04.118349", 
+                "time_train": "1:28:22.297632", 
+                "title": "xp119"
+            }, 
+            "note": "", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 217.09884643554688, 
+                "avg_MRR": 0.1988276094198227, 
+                "head_MR": 260.8573913574219, 
+                "head_MRR": 0.18282321095466614, 
+                "tail_MR": 173.34030151367188, 
+                "tail_MRR": 0.21483200788497925
+            }
+        }, 
+        "xp120": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp120", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:45.390176", 
+                "time_train": "0:04:50.919142", 
+                "title": "xp120"
+            }, 
+            "note": "", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 433.2077941894531, 
+                "avg_MRR": 0.42891328036785126, 
+                "head_MR": 344.543701171875, 
+                "head_MRR": 0.4192732870578766, 
+                "tail_MR": 521.8718872070312, 
+                "tail_MRR": 0.4385532736778259
+            }
+        }, 
+        "xp121": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp121", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:45.585586", 
+                "time_train": "0:47:04.946049", 
+                "title": "xp121"
+            }, 
+            "note": "", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "opt_method": "Adam", 
+                "rel_size": 512
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 467.7327117919922, 
+                "avg_MRR": 0.3004051595926285, 
+                "head_MR": 406.5306091308594, 
+                "head_MRR": 0.29954615235328674, 
+                "tail_MR": 528.934814453125, 
+                "tail_MRR": 0.3012641668319702
+            }
+        }, 
+        "xp122": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp122", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:12:18.882884", 
+                "time_train": "0:49:29.826715", 
+                "title": "xp122"
+            }, 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 100, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 131.01284790039062, 
+                "avg_MRR": 0.44298842549324036, 
+                "head_MR": 129.43519592285156, 
+                "head_MRR": 0.4188620150089264, 
+                "tail_MR": 132.5904998779297, 
+                "tail_MRR": 0.4671148359775543
+            }
+        }, 
+        "xp123": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp123", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:10:38.730260", 
+                "time_train": "0:31:18.828859", 
+                "title": "xp123"
+            }, 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 50, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 102.00204849243164, 
+                "avg_MRR": 0.4135170876979828, 
+                "head_MR": 105.92449951171875, 
+                "head_MRR": 0.38736703991889954, 
+                "tail_MR": 98.07959747314453, 
+                "tail_MRR": 0.43966713547706604
+            }
+        }, 
+        "xp124": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp124", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:14.913406", 
+                "time_train": "0:23:20.287178", 
+                "title": "xp124"
+            }, 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 20, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 84.47269821166992, 
+                "avg_MRR": 0.3559946119785309, 
+                "head_MR": 90.63809967041016, 
+                "head_MRR": 0.3247724175453186, 
+                "tail_MR": 78.30729675292969, 
+                "tail_MRR": 0.38721680641174316
+            }
+        }, 
+        "xp124-2": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp124-2", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:46.532699", 
+                "time_train": "0:56:31.619193", 
+                "title": "xp124-2", 
+                "train_times": 6416
+            }, 
+            "note": "Threshold 1e^-8", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 20, 
+                "opt_method": "Adam", 
+                "rel_size": 512
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 416.50634765625, 
+                "avg_MRR": 0.30071642994880676, 
+                "head_MR": 364.5635986328125, 
+                "head_MRR": 0.2972770631313324, 
+                "tail_MR": 468.4490966796875, 
+                "tail_MRR": 0.30415579676628113
+            }
+        }, 
+        "xp125": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp125", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:09:33.249918", 
+                "time_train": "0:17:17.790657", 
+                "title": "xp125"
+            }, 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 1, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 1821.4215087890625, 
+                "avg_MRR": 0.16559004038572311, 
+                "head_MR": 1843.9599609375, 
+                "head_MRR": 0.13921454548835754, 
+                "tail_MR": 1798.883056640625, 
+                "tail_MRR": 0.19196553528308868
+            }
+        }, 
+        "xp126": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp126", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:12:30.024872", 
+                "time_train": "0:26:56.016923", 
+                "title": "xp126"
+            }, 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 10, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 94.76034927368164, 
+                "avg_MRR": 0.3092440366744995, 
+                "head_MR": 106.54290008544922, 
+                "head_MRR": 0.2772311270236969, 
+                "tail_MR": 82.97779846191406, 
+                "tail_MRR": 0.3412569463253021
+            }
+        }, 
+        "xp127": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp127", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:24.362526", 
+                "time_train": "0:12:15.475517", 
+                "title": "xp127"
+            }, 
+            "parameters": {
+                "ent_size": 200, 
+                "hidden_size": 200, 
+                "nbatches": 20, 
+                "opt_method": "Adam", 
+                "rel_size": 200, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 99.05780029296875, 
+                "avg_MRR": 0.2892543524503708, 
+                "head_MR": 111.43350219726562, 
+                "head_MRR": 0.25812506675720215, 
+                "tail_MR": 86.68209838867188, 
+                "tail_MRR": 0.32038363814353943
+            }
+        }, 
+        "xp128": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp128", 
+                "host": "ilar01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "4:49:34.005117", 
+                "time_train": "3:55:38.135102", 
+                "title": "xp128"
+            }, 
+            "parameters": {
+                "alpha": 0.005, 
+                "nbatches": 100000, 
+                "opt_method": "Adagrad", 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 190490.828125, 
+                "avg_MRR": 0.01901991944760084, 
+                "head_MR": 179335.15625, 
+                "head_MRR": 0.016725508496165276, 
+                "tail_MR": 201646.5, 
+                "tail_MRR": 0.021314330399036407
+            }
+        }, 
+        "xp129": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp129", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "4:46:23.970677", 
+                "time_train": "7:46:02.769969", 
+                "title": "xp129"
+            }, 
+            "parameters": {
+                "alpha": 0.01, 
+                "nbatches": 100000, 
+                "opt_method": "Adagrad", 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 183722.5703125, 
+                "avg_MRR": 0.019908249378204346, 
+                "head_MR": 176422.546875, 
+                "head_MRR": 0.017345571890473366, 
+                "tail_MR": 191022.59375, 
+                "tail_MRR": 0.022470926865935326
+            }
+        }, 
+        "xp130": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp130", 
+                "host": "malaga01", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "6:29:51.859169", 
+                "time_train": "3:14:36.239424", 
+                "title": "xp130"
+            }, 
+            "parameters": {
+                "alpha": 0.01, 
+                "ent_size": 50, 
+                "hidden_size": 50, 
+                "nbatches": 100000, 
+                "opt_method": "Adagrad", 
+                "rel_size": 50, 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 202641.5, 
+                "avg_MRR": 0.015039173420518637, 
+                "head_MR": 194228.78125, 
+                "head_MRR": 0.012605198659002781, 
+                "tail_MR": 211054.21875, 
+                "tail_MRR": 0.017473148182034492
+            }
+        }, 
+        "xp131": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp131", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "4:34:45.092920", 
+                "time_train": "1:41:48.269745", 
+                "title": "xp131"
+            }, 
+            "parameters": {
+                "alpha": 0.01, 
+                "nbatches": 75000, 
+                "opt_method": "Adagrad", 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 186853.1015625, 
+                "avg_MRR": 0.01953745074570179, 
+                "head_MR": 178317.734375, 
+                "head_MRR": 0.01632089540362358, 
+                "tail_MR": 195388.46875, 
+                "tail_MRR": 0.02275400608778
+            }
+        }, 
+        "xp132": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp132", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "4:35:20.163027", 
+                "time_train": "4:58:46.307311", 
+                "title": "xp132", 
+                "train_times": 50
+            }, 
+            "parameters": {
+                "alpha": 0.01, 
+                "nbatches": 300000, 
+                "opt_method": "Adagrad", 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "TransE", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 188667.765625, 
+                "avg_MRR": 0.019384379498660564, 
+                "head_MR": 180002.359375, 
+                "head_MRR": 0.016023783013224602, 
+                "tail_MR": 197333.171875, 
+                "tail_MRR": 0.022744975984096527
+            }
+        }, 
+        "xp133": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp133", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:53.638306", 
+                "time_train": "0:42:06.860098", 
+                "title": "xp133", 
+                "train_times": 100
+            }, 
+            "note": "NLL test", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 230, 
+                "negative_ent": 10, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 7406.886962890625, 
+                "avg_MRR": 0.0005169479118194431, 
+                "head_MR": 7393.71533203125, 
+                "head_MRR": 0.0005212532123550773, 
+                "tail_MR": 7420.05859375, 
+                "tail_MRR": 0.000512642611283809
+            }
+        }, 
+        "xp134": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp134", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:58.094790", 
+                "time_train": "1:23:01.430051", 
+                "title": "xp134", 
+                "train_times": 100
+            }, 
+            "note": "NLL test", 
+            "parameters": {
+                "alpha": 0.1, 
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 13496.5712890625, 
+                "avg_MRR": 9.310246241511777e-05, 
+                "head_MR": 13465.3779296875, 
+                "head_MRR": 9.270494047086686e-05, 
+                "tail_MR": 13527.7646484375, 
+                "tail_MRR": 9.349998435936868e-05
+            }
+        }, 
+        "xp135": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp135", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:14.411409", 
+                "time_train": "0:41:49.925189", 
+                "title": "xp135", 
+                "train_times": 100
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 39.593000411987305, 
+                "avg_MRR": 0.5062263756990433, 
+                "head_MR": 48.63180160522461, 
+                "head_MRR": 0.47222259640693665, 
+                "tail_MR": 30.55419921875, 
+                "tail_MRR": 0.5402301549911499
+            }
+        }, 
+        "xp136": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp136", 
+                "host": "ilar02", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:07:46.265796", 
+                "time_train": "0:28:34.016913", 
+                "title": "xp136", 
+                "train_times": 100
+            }, 
+            "note": "Redo xp135 with loss = -y*res ", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 712.158203125, 
+                "avg_MRR": 0.16654273867607117, 
+                "head_MR": 753.8378295898438, 
+                "head_MRR": 0.13189902901649475, 
+                "tail_MR": 670.4785766601562, 
+                "tail_MRR": 0.20118644833564758
+            }
+        }, 
+        "xp137": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp137", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:45.926160", 
+                "time_train": "0:14:35.015830", 
+                "title": "xp137"
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 1000
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 42.87750053405762, 
+                "avg_MRR": 0.5719521045684814, 
+                "head_MR": 51.90489959716797, 
+                "head_MRR": 0.54325932264328, 
+                "tail_MR": 33.850101470947266, 
+                "tail_MRR": 0.6006448864936829
+            }
+        }, 
+        "xp138": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp138", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:45.642197", 
+                "time_train": "0:00:53.283826", 
+                "title": "xp138"
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 50, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 43.9057502746582, 
+                "avg_MRR": 0.46852779388427734, 
+                "head_MR": 52.6057014465332, 
+                "head_MRR": 0.438122034072876, 
+                "tail_MR": 35.2057991027832, 
+                "tail_MRR": 0.4989335536956787
+            }
+        }, 
+        "xp139": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp139", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:00:33.418396", 
+                "time_train": "0:00:33.072052", 
+                "title": "xp139", 
+                "train_times": 100
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 200, 
+                "hidden_size": 200, 
+                "nbatches": 50, 
+                "opt_method": "Adam", 
+                "rel_size": 200, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 52.26765060424805, 
+                "avg_MRR": 0.36425964534282684, 
+                "head_MR": 63.40370178222656, 
+                "head_MRR": 0.3327312171459198, 
+                "tail_MR": 41.13159942626953, 
+                "tail_MRR": 0.3957880735397339
+            }
+        }, 
+        "xp140": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp140", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:01:06.886498", 
+                "time_train": "0:02:49.695251", 
+                "title": "xp140", 
+                "train_times": 100
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 1000, 
+                "hidden_size": 1000, 
+                "nbatches": 230, 
+                "opt_method": "Adam", 
+                "rel_size": 1000, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 39.106300354003906, 
+                "avg_MRR": 0.5357306599617004, 
+                "head_MR": 47.132301330566406, 
+                "head_MRR": 0.5021441578865051, 
+                "tail_MR": 31.080299377441406, 
+                "tail_MRR": 0.5693171620368958
+            }
+        }, 
+        "xp141": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp141", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:01:05.128930", 
+                "time_train": "0:04:38.723938", 
+                "title": "xp141", 
+                "train_times": 100
+            }, 
+            "note": "best FB15K. loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 1000, 
+                "hidden_size": 1000, 
+                "nbatches": 500, 
+                "opt_method": "Adam", 
+                "rel_size": 1000, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 38.13539981842041, 
+                "avg_MRR": 0.5345415472984314, 
+                "head_MR": 47.9197998046875, 
+                "head_MRR": 0.5004708766937256, 
+                "tail_MR": 28.35099983215332, 
+                "tail_MRR": 0.5686122179031372
+            }
+        }, 
+        "xp142": {
+            "corpus": {
+                "total_ent": 14951, 
+                "total_rel": 1345, 
+                "total_test": 10000, 
+                "total_train": 483142, 
+                "total_valid": 50000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp142", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/FB15K/", 
+                "time_test": "0:01:07.216834", 
+                "time_train": "0:47:44.000955", 
+                "title": "xp142", 
+                "train_times": 100
+            }, 
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "ent_size": 1000, 
+                "hidden_size": 1000, 
+                "nbatches": 230, 
+                "negative_ent": 100, 
+                "opt_method": "Adam", 
+                "rel_size": 1000, 
+                "train_times": 100
+            }, 
+            "params_task": {
+                "kb": "FB15K", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 42.1734504699707, 
+                "avg_MRR": 0.5780141949653625, 
+                "head_MR": 50.5452995300293, 
+                "head_MRR": 0.550481915473938, 
+                "tail_MR": 33.80160140991211, 
+                "tail_MRR": 0.6055464744567871
+            }
+        }, 
+        "xp143": {
+            "corpus": {
+                "total_ent": 2263915, 
+                "total_rel": 664746, 
+                "total_test": 10000, 
+                "total_train": 14708268, 
+                "total_valid": 10000
+            }, 
+            "log": {
+                "embeddings_path": "/data/rali6/Tmp/wujieche/openke_xps/xp143", 
+                "host": "octal19", 
+                "in_path": "/u/wujieche/Projects/OpenKE/data/RV15M/", 
+                "time_test": "1:07:05.543421", 
+                "time_train": "1:01:56.455969", 
+                "title": "xp143", 
+                "train_times": 50
+            }, 
+            "note": "best loss, failed on octal19", 
+            "parameters": {
+                "alpha": 0.1, 
+                "opt_method": "Adam", 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
+            }, 
+            "perf": {
+                "avg_MR": 520689.421875, 
+                "avg_MRR": 0.000143766916153254, 
+                "head_MR": 501728.65625, 
+                "head_MRR": 0.00011896700743818656, 
+                "tail_MR": 539650.1875, 
+                "tail_MRR": 0.00016856682486832142
+            }
+        }, 
+        "xp144": {
+            "note": "loss_func = tf.reduce_mean(tf.maximum(-1.0 * y *tf.log(tf.nn.softmax( res))+ config.margin,0))", 
+            "parameters": {
+                "alpha": 0.01, 
+                "ent_size": 512, 
+                "hidden_size": 512, 
+                "nbatches": 1000, 
+                "opt_method": "Adam", 
+                "rel_size": 512, 
+                "train_times": 50
+            }, 
+            "params_task": {
+                "kb": "RV15M", 
+                "model": "DistMult", 
+                "task": "train+test", 
+                "xp_path_base": "/data/rali6/Tmp/wujieche/openke_xps"
             }
         }
-        
     }
 }

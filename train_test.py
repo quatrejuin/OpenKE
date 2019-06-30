@@ -148,7 +148,8 @@ def report(xp):
                .format(xp["perf"]["head_MRR"], xp["perf"]["tail_MRR"], xp["perf"]["avg_MRR"]))
     report += ("Config files train and test.py are saved alongside model in {}\n"
                .format(os.path.abspath(xp["log"]["embeddings_path"])))
-    report += ("Train Time: {}\nTest Time: {}\n".format(xp["log"]["time_train"],xp["log"]["time_test"]))
+    if "train" in xp["params_task"]["task"]:
+    	report += ("Train Time: {}\nTest Time: {}\n".format(xp["log"]["time_train"],xp["log"]["time_test"]))
     print(report)
     save_via_email(xp["log"]["title"] + " {:.2f}k".format(xp["perf"]["avg_MR"]/1000) , report)
 
@@ -283,6 +284,8 @@ if "train" in MENU[ans]:
   xp["log"]["time_train"] = str(datetime.timedelta(seconds=time.time()-t0))
   # Save the train_times
   xp["log"]["train_times"] = con.train_times
+  # Save the final loss
+  xp["log"]["fin_loss"] = con.fin_loss
 
 #To test models after training needs "set_test_flag(True)".
 # Train+ test or Test only
@@ -290,6 +293,7 @@ if "test" in MENU[ans]:
   t0 = time.time()
   con.test()
   xp["log"]["time_test"] = str(datetime.timedelta(seconds=time.time()-t0))
+  x
 
   # Get the performance
   xp["perf"] = {}
@@ -299,6 +303,10 @@ if "test" in MENU[ans]:
   xp["perf"]["head_MRR"] = con.get_head_mrr()
   xp["perf"]["tail_MRR"] = con.get_tail_mrr()
   xp["perf"]["avg_MRR"] = (xp["perf"]["head_MRR"] + xp["perf"]["tail_MRR"])/2
+  xp["perf"]["head_top10"] = con.get_head_top10()
+  xp["perf"]["tail_top10"] = con.get_tail_top10()
+  xp["perf"]["avg_top10"] = (xp["perf"]["head_top10"] + xp["perf"]["tail_top10"])/2
+
 
 
   shutil.copy2("log.log", "{}/".format(xp["log"]["embeddings_path"]))

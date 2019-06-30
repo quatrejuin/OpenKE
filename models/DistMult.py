@@ -41,7 +41,7 @@ class DistMult(Model):
 		#regul_func = tf.reduce_mean(e_h ** 2) + tf.reduce_mean(e_t ** 2) + tf.reduce_mean(e_r ** 2)
 		#Calculating loss to get what the framework will optimize
 		#self.loss =  loss_func + config.lmbda * regul_func
-		self.loss =  std_loss_func
+		self.loss =  loss_func
 
 		self.showres = res
 	

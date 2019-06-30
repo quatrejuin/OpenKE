@@ -320,4 +320,16 @@ REAL get_tail_mrr ()
     return r_filter_reci_rank;
 }
 
+extern "C"
+REAL get_head_top10 ()
+{
+    return l_filter_tot;
+}
+
+extern "C"
+REAL get_tail_top10 ()
+{
+    return r_filter_tot;
+}
+
 #endif

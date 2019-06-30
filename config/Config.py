@@ -57,6 +57,11 @@ class Config(object):
         self.get_head_mrr.restype = ctypes.c_float
         self.get_tail_mr.restype = ctypes.c_float
         self.get_tail_mrr.restype = ctypes.c_float
+
+        self.get_head_top10 = self.lib.get_head_top10
+        self.get_head_top10.restype = ctypes.c_float
+        self.get_tail_top10 = self.lib.get_tail_top10
+        self.get_tail_top10.restype = ctypes.c_float
     def init(self):
         self.trainModel = None
         if self.in_path != None:
@@ -332,6 +337,8 @@ class Config(object):
                         print res
                     if self.exportName != None and (self.export_steps!=0 and times % self.export_steps == 0):
                         self.save_tensorflow()
+                # Record the train_times
+                self.fin_loss = res
                 if self.exportName != None:
                     self.save_tensorflow()
                 if self.out_path != None:

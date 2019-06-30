@@ -412,7 +412,8 @@ class Config(object):
                         tail_rank = self.lib.testTail(res.__array_interface__['data'][0])
                         # print("Tail rank for example {}: {}".format(times, tail_rank))
                         f.write("{} {} {} {} {}\n".format(arg1, rel, arg2, head_rank, tail_rank))
-                        
+                        f.flush();
+
                         if self.log_on:
                             print times
                     self.lib.test_link_prediction()

@@ -1,4 +1,3 @@
-%%writefile ./OpenKE/models/word2vec.py
 #coding:utf-8
 import numpy as np
 import tensorflow as tf

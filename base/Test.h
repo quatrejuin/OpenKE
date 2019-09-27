@@ -3,6 +3,7 @@
 #include "Setting.h"
 #include "Reader.h"
 #include "Corrupt.h"
+#include "float.h"
 
 /*=====================================================================================
 link prediction
@@ -78,6 +79,38 @@ void testHead(REAL *con) {
         }
     }
 
+
+    INT l_s_strict = 0;
+    INT l_filter_s_strict = 0;
+    INT l_s_constrain_strict = 0;
+    INT l_filter_s_constrain_strict = 0;
+    // Strict ranking
+    for (INT j = 0; j < entityTotal; j++) {
+        if (j != h) {
+            REAL value = con[j];
+            if (value < minimal + FLT_EPSILON) {
+                l_s_strict += 1;
+                if (not _find(j, t, r))
+                    l_filter_s_strict += 1;
+            }
+            while (lef < rig && head_type[lef] < j) lef ++;
+            if (lef < rig && j == head_type[lef]) {
+                if (value < minimal + FLT_EPSILON) {
+                    l_s_constrain_strict += 1;
+                    if (not _find(j, t, r)) {
+                        l_filter_s_constrain_strict += 1;
+                    }
+                }  
+            }
+        }
+    }
+
+    // Get the ajusted rank
+    l_s = (l_s + l_s_strict)/2;
+    l_filter_s = (l_filter_s + l_filter_s_strict)/2;
+    l_s_constrain = (l_s_constrain + l_s_constrain_strict)/2;
+    l_filter_s_constrain = (l_filter_s_constrain + l_filter_s_constrain_strict)/2;
+
     if (l_filter_s < 10) l_filter_tot += 1;
     if (l_s < 10) l_tot += 1;
     if (l_filter_s < 3) l3_filter_tot += 1;
@@ -136,6 +169,37 @@ void testTail(REAL *con) {
         }
         
     }
+
+    INT r_s_strict = 0;
+    INT r_filter_s_strict = 0;
+    INT r_s_constrain_strict = 0;
+    INT r_filter_s_constrain_strict = 0;
+    // Strict ranking
+    for (INT j = 0; j < entityTotal; j++) {
+        if (j != h) {
+            REAL value = con[j];
+            if (value < minimal + FLT_EPSILON) {
+                r_s_strict += 1;
+                if (not _find(h, j, r))
+                    r_filter_s_strict += 1;
+            }
+            while (lef < rig && tail_type[lef] < j) lef ++;
+            if (lef < rig && j == tail_type[lef]) {
+                if (value < minimal + FLT_EPSILON) {
+                    r_s_constrain_strict += 1;
+                    if (not _find(h, j, r)) {
+                        r_filter_s_constrain_strict += 1;
+                    }
+                }  
+            }
+        }
+    }
+
+    // Get the ajusted rank
+    r_s = (r_s + r_s_strict)/2;
+    r_filter_s = (r_filter_s + r_filter_s_strict)/2;
+    r_s_constrain = (r_s_constrain + r_s_constrain_strict)/2;
+    r_filter_s_constrain = (r_filter_s_constrain + r_filter_s_constrain_strict)/2;
 
     if (r_filter_s < 10) r_filter_tot += 1;
     if (r_s < 10) r_tot += 1;

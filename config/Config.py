@@ -208,10 +208,10 @@ class Config(object):
         self.lib.sampling(self.batch_h_addr, self.batch_t_addr, self.batch_r_addr, self.batch_y_addr, self.batch_size, self.negative_ent, self.negative_rel)
 
     # save model
-    def save_tensorflow(self):
+    def save_tensorflow(self, global_step = None):
         with self.graph.as_default():
             with self.sess.as_default():
-                self.saver.save(self.sess, self.exportName)
+                self.saver.save(self.sess, self.exportName, global_step)
     # restore model
     def restore_tensorflow(self):
         with self.graph.as_default():
@@ -294,7 +294,7 @@ class Config(object):
                         self.optimizer = tf.train.GradientDescentOptimizer(self.alpha)
                     grads_and_vars = self.optimizer.compute_gradients(self.trainModel.loss)
                     self.train_op = self.optimizer.apply_gradients(grads_and_vars)
-                self.saver = tf.train.Saver()
+                self.saver = tf.train.Saver(max_to_keep = 20)
                 self.sess.run(tf.global_variables_initializer())
 
     def train_step(self, batch_h, batch_t, batch_r, batch_y):
@@ -337,7 +337,7 @@ class Config(object):
                     if self.log_on:
                         print('Epoch: {}, loss: {}, time: {}'.format(times, loss, (t_end - t_init)))
                     if self.exportName != None and (self.export_steps!=0 and times % self.export_steps == 0):
-                        self.save_tensorflow()
+                        self.save_tensorflow(times)
                     if self.early_stopping is not None:
                         if loss + min_delta < best_loss:
                             best_loss = loss
@@ -348,7 +348,7 @@ class Config(object):
                             print('Early stopping. Losses have not been improved enough in {} times'.format(patience))
                             break
                 if self.exportName != None:
-                    self.save_tensorflow()
+                    self.save_tensorflow(times)
                 if self.out_path != None:
                     self.save_parameters(self.out_path)
 

@@ -208,10 +208,10 @@ class Config(object):
         self.lib.sampling(self.batch_h_addr, self.batch_t_addr, self.batch_r_addr, self.batch_y_addr, self.batch_size, self.negative_ent, self.negative_rel)
 
     # save model
-    def save_tensorflow(self, global_step = None):
+    def save_tensorflow(self, step = None):
         with self.graph.as_default():
             with self.sess.as_default():
-                self.saver.save(self.sess, self.exportName, global_step)
+                self.saver.save(self.sess, self.exportName, global_step = step)
     # restore model
     def restore_tensorflow(self):
         with self.graph.as_default():

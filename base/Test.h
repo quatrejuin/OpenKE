@@ -16,6 +16,9 @@ REAL l3_filter_tot = 0, l3_tot = 0, r3_tot = 0, r3_filter_tot = 0, l_filter_tot 
 REAL l1_filter_tot_constrain = 0, l1_tot_constrain = 0, r1_tot_constrain = 0, r1_filter_tot_constrain = 0, l_tot_constrain = 0, r_tot_constrain = 0, l_filter_rank_constrain = 0, l_rank_constrain = 0, l_filter_reci_rank_constrain = 0, l_reci_rank_constrain = 0;
 REAL l3_filter_tot_constrain = 0, l3_tot_constrain = 0, r3_tot_constrain = 0, r3_filter_tot_constrain = 0, l_filter_tot_constrain = 0, r_filter_tot_constrain = 0, r_filter_rank_constrain = 0, r_rank_constrain = 0, r_filter_reci_rank_constrain = 0, r_reci_rank_constrain = 0;
 
+INT head_count = 0;
+INT tail_count = 0;
+
 extern "C"
 void initTest() {
     lastHead = 0;
@@ -79,7 +82,6 @@ void testHead(REAL *con) {
         }
     }
 
-
     INT l_s_strict = 0;
     INT l_filter_s_strict = 0;
     INT l_s_constrain_strict = 0;
@@ -103,6 +105,21 @@ void testHead(REAL *con) {
                 }  
             }
         }
+    }
+
+    lef = head_lef[r], rig = head_rig[r];
+    while (lef < rig && head_type[lef] < h) lef ++;
+    if (h != head_type[lef]) 
+    // h is not in the head type list of r 
+    // {head_type[head_lef[r]],...., head_type[head_rig[r]] }
+    {
+        head_count++;
+        printf("lef=%d, rig = %d, head_type[lef]=%d,h=%d\n, head_count=%d\n",
+               lef,rig, head_type[lef],h, head_count);
+        l_s_constrain = l_s;
+        l_filter_s_constrain = l_filter_s; 
+        l_s_constrain_strict = l_s_strict;
+        l_filter_s_constrain_strict = l_filter_s_strict;     
     }
 
     // Get the ajusted rank
@@ -170,6 +187,7 @@ void testTail(REAL *con) {
         
     }
 
+    lef = tail_lef[r], rig = tail_rig[r];
     INT r_s_strict = 0;
     INT r_filter_s_strict = 0;
     INT r_s_constrain_strict = 0;
@@ -193,6 +211,21 @@ void testTail(REAL *con) {
                 }  
             }
         }
+    }
+
+    lef = tail_lef[r], rig = tail_rig[r];
+    while (lef < rig && tail_type[lef] < t) lef ++;
+    if (t != tail_type[lef]) 
+    // t is not in the tail type list of r 
+    // {tail_type[tail_lef[r]],...., tail_type[tail_rig[r]] }
+    {
+        tail_count++;
+        printf("lef=%d, rig = %d, tail_type[lef]=%d,t=%d\n, tail_count=%d\n",
+               lef,rig, tail_type[lef],t,tail_count);
+        r_s_constrain = r_s;
+        r_filter_s_constrain = r_filter_s;  
+        r_s_constrain_strict = r_s_strict;
+        r_filter_s_constrain_strict = r_filter_s_strict;     
     }
 
     // Get the ajusted rank

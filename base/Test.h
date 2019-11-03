@@ -50,6 +50,13 @@ void getTailBatch(INT *ph, INT *pt, INT *pr) {
 }
 
 extern "C"
+void getTest(INT &h, INT &t, INT &r) {
+    h = testList[lastTail].h;
+    t = testList[lastTail].t;
+    r = testList[lastTail].r;
+}
+
+extern "C"
 void testHead(REAL *con) {
     INT h = testList[lastHead].h;
     INT t = testList[lastHead].t;

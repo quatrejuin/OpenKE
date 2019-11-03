@@ -17,6 +17,7 @@ class Config(object):
         self.lib.sampling.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_int64, ctypes.c_int64, ctypes.c_int64]
         self.lib.getHeadBatch.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
         self.lib.getTailBatch.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
+        self.lib.getTest.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
         self.lib.testHead.argtypes = [ctypes.c_void_p]
         self.lib.testTail.argtypes = [ctypes.c_void_p]
         self.lib.getTestBatch.argtypes = [ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_void_p]
@@ -36,7 +37,7 @@ class Config(object):
         self.negative_ent = 1
         self.negative_rel = 0
         self.workThreads = 1
-        self.alpha = 0.001
+        self.alpha = 0.01
         self.lmbda = 0.000
         self.log_on = 1
         self.exportName = None
@@ -360,6 +361,11 @@ class Config(object):
                 if self.test_link_prediction:
                     total = self.lib.getTestTotal()
                     for times in range(total):
+                        h = ctypes.c_int(-1)
+                        t = ctypes.c_int(-1)
+                        r = ctypes.c_int(-1)
+                        self.lib.getTest(ctypes.pointer(h),ctypes.pointer(t),ctypes.pointer(r))
+                        print("%d %d %d\n"%(h.value,t.value,r.value))
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         self.lib.testHead(res.__array_interface__['data'][0])

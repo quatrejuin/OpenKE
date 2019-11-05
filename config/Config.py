@@ -6,6 +6,7 @@ import time
 import datetime
 import ctypes
 import json
+import csv
 
 class Config(object):
     '''
@@ -317,7 +318,7 @@ class Config(object):
         predict = self.sess.run(self.trainModel.predict, feed_dict)
         return predict
 
-    def run(self, epoch_cb = None):
+    def run(self,epoch_cb = None):
         with self.graph.as_default():
             with self.sess.as_default():
                 if self.importName != None:
@@ -333,6 +334,7 @@ class Config(object):
                         self.sampling()
                         loss += self.train_step(self.batch_h, self.batch_t, self.batch_r, self.batch_y)
                     t_end = time.time()
+
                     if epoch_cb != None:
                         epoch_cb(loss)
                     if self.log_on:
@@ -360,7 +362,8 @@ class Config(object):
                     self.restore_tensorflow()
                 if self.test_link_prediction:
                     total = self.lib.getTestTotal()
-                    for times in range(total):
+                    res_list = []
+                    for times in range(10):
                         h = ctypes.c_int(-1)
                         t = ctypes.c_int(-1)
                         r = ctypes.c_int(-1)
@@ -368,14 +371,23 @@ class Config(object):
                         print("%d %d %d\n"%(h.value,t.value,r.value))
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
+                        res_list.append([[h.value,t.value,r.value],res.reshape(-1).argsort()[:500]])
                         self.lib.testHead(res.__array_interface__['data'][0])
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
+                        res_list.append([[h.value,t.value,r.value],res.reshape(-1).argsort()[:500]])
                         self.lib.testTail(res.__array_interface__['data'][0])
                         if self.log_on:
                             print(times)
                     self.lib.test_link_prediction()
+                    with open('res.csv', mode='w') as res_file:
+                        res_writer = csv.writer(res_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                        for item in res_list:
+                            res_writer.writerow([x for sublist in item for x in sublist])
+                    print("Result is exported to res.csv")
+                    
+                        
                 if self.test_triple_classification:
                     self.lib.getValidBatch(self.valid_pos_h_addr, self.valid_pos_t_addr, self.valid_pos_r_addr, self.valid_neg_h_addr, self.valid_neg_t_addr, self.valid_neg_r_addr)
                     res_pos = self.test_step(self.valid_pos_h, self.valid_pos_t, self.valid_pos_r)

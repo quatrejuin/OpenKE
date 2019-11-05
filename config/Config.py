@@ -363,7 +363,7 @@ class Config(object):
                 if self.test_link_prediction:
                     total = self.lib.getTestTotal()
                     res_list = []
-                    for times in range(10):
+                    for times in range(total):
                         h = ctypes.c_int(-1)
                         t = ctypes.c_int(-1)
                         r = ctypes.c_int(-1)

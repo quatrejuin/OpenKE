@@ -10,3 +10,4 @@ from .HolE import HolE
 from .ComplEx import ComplEx
 from .Analogy import Analogy
 from .word2vec import word2vec
+from .testmodel import testmodel

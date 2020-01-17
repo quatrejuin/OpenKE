@@ -372,12 +372,12 @@ class Config(object):
                         self.lib.getHeadBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         res_list.append([[h.value,t.value,r.value],res.reshape(-1).argsort()[:500]])
-                        self.lib.testHead(res.__array_interface__['data'][0])
+                        l_filter_rank = self.lib.testHead(res.__array_interface__['data'][0])
 
                         self.lib.getTailBatch(self.test_h_addr, self.test_t_addr, self.test_r_addr)
                         res = self.test_step(self.test_h, self.test_t, self.test_r)
                         res_list.append([[h.value,t.value,r.value],res.reshape(-1).argsort()[:500]])
-                        self.lib.testTail(res.__array_interface__['data'][0])
+                        r_filter_rank = self.lib.testTail(res.__array_interface__['data'][0])
                         if self.log_on:
                             print(times)
                     self.lib.test_link_prediction()

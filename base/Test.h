@@ -57,7 +57,7 @@ void getTest(INT &h, INT &t, INT &r) {
 }
 
 extern "C"
-void testHead(REAL *con) {
+INT testHead(REAL *con) {
     INT h = testList[lastHead].h;
     INT t = testList[lastHead].t;
     INT r = testList[lastHead].r;
@@ -160,10 +160,12 @@ void testHead(REAL *con) {
     l_reci_rank_constrain += 1.0/(l_s_constrain+1);
 
     lastHead++;
+    
+    return l_filter_rank;
 }
 
 extern "C"
-void testTail(REAL *con) {
+INT testTail(REAL *con) {
     INT h = testList[lastTail].h;
     INT t = testList[lastTail].t;
     INT r = testList[lastTail].r;
@@ -266,6 +268,8 @@ void testTail(REAL *con) {
     r_reci_rank_constrain += 1.0/(1+r_s_constrain);
 
     lastTail++;
+
+    return r_filter_rank;
 }
 
 extern "C"

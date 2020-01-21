@@ -161,7 +161,7 @@ INT testHead(REAL *con) {
 
     lastHead++;
     
-    return l_filter_rank;
+    return (l_filter_s+1);
 }
 
 extern "C"
@@ -269,7 +269,7 @@ INT testTail(REAL *con) {
 
     lastTail++;
 
-    return r_filter_rank;
+    return (1+r_filter_s);
 }
 
 extern "C"
